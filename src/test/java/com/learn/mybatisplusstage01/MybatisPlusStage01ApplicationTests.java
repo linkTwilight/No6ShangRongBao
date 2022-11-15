@@ -2,6 +2,8 @@ package com.learn.mybatisplusstage01;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.learn.mybatisplusstage01.entity.User;
 import com.learn.mybatisplusstage01.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
@@ -50,10 +52,28 @@ class MybatisPlusStage01ApplicationTests {
 
         System.out.println(userMapper.selectList(new LambdaQueryWrapper<User>()
                 .gt(User::getAge, 18)
-                .eq(User::getAge, 28)
-                .or()
-                .like(User::getName, "o")
+                .and(w -> w
+                        .eq(User::getAge, 28)
+                        .or()
+                        .like(User::getName, "o")
+                )
         ));
+    }
+
+    @Test
+    public void testPage() {
+        //分页查询
+/*        System.out.println(userMapper.selectList(new LambdaQueryWrapper<User>()
+                .last("limit 0,2")
+        ));*/
+        IPage<User> page = new Page<>(2, 2);
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.gt(User::getAge, 20);
+        userMapper.selectPage(page, wrapper);
+
+        System.out.println("查询到的记录：" + page.getRecords());
+        System.out.println("查询到的总记录数：" + page.getTotal());
+        System.out.println("查询到的总页码：" + page.getPages());
     }
 
     // 新增
