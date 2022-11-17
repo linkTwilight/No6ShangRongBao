@@ -119,7 +119,13 @@ class MybatisPlusStage01ApplicationTests {
         productMapper.updateById(product1);
 
         product2.setPrice(product2.getPrice() - 500);
-        productMapper.updateById(product2);
+//        productMapper.updateById(product2);
+        int i = productMapper.updateById(product2);
+        while (i == 0) { //自旋转  失败时继续, 直到成功为止
+            product2 = productMapper.selectById(1);
+            product2.setPrice(product2.getPrice() - 500);
+            i = productMapper.updateById(product2); // 接收执行返回的影响记录的条数，=0代表执行失败
+        }
 
         System.out.println("修改后" + productMapper.selectById(1));
 
