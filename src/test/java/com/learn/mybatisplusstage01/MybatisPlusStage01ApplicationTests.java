@@ -2,6 +2,8 @@ package com.learn.mybatisplusstage01;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.learn.mybatisplusstage01.entity.User;
@@ -10,7 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
+
+import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
 
 @SpringBootTest
 class MybatisPlusStage01ApplicationTests {
@@ -86,6 +91,22 @@ class MybatisPlusStage01ApplicationTests {
         System.out.println(userMapper.insert(user)>0 ? "success" : "failure");
     }
 
+    @Test
+    public void testUpdate(){
+/*        // 根据id
+        User user = userMapper.selectById(1);
+        user.setName("约翰");
+        int i = userMapper.updateById(user);
+        System.out.println(i);*/
 
+        LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+        User user = new User();
+//        user.setName("约翰");
+        updateWrapper.eq(User::getName, "Tom");
+        updateWrapper.set(User::getAge,55);
+        updateWrapper.set(User::getName, "方源");
+        updateWrapper.set(User::getCreatTime,new Date());
+        userMapper.update(user, updateWrapper);
+    }
 
 }

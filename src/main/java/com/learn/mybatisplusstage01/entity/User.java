@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 public class User {
     @TableId(type = IdType.ASSIGN_ID)
@@ -14,4 +16,9 @@ public class User {
     private String name;
     private Integer age;
     private String email;
+
+    private Date creatTime;
+    private Date updateTime;
+
+
 }

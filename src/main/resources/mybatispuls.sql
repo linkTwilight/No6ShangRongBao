@@ -9,3 +9,8 @@ CREATE TABLE product
 );
 
 INSERT INTO product (id, NAME, price) VALUES (1, '笔记本', 100);
+
+
+
+ALTER TABLE user ADD COLUMN creat_time DATETIME COMMENT '创建时间';
+ALTER TABLE user ADD COLUMN update_time DATETIME COMMENT '修改时间';
