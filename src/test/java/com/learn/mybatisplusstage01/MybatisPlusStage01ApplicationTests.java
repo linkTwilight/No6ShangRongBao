@@ -77,6 +77,15 @@ class MybatisPlusStage01ApplicationTests {
     }
 
     // 新增
+    @Test
+    public void testInsert() {
+        User user = new User();
+        user.setName("xiaoshi");
+        user.setEmail("xiaoshi@gmail.com");
+        user.setAge(30);
+        System.out.println(userMapper.insert(user)>0 ? "success" : "failure");
+    }
+
 
 
 }
