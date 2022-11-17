@@ -1,21 +1,18 @@
 package com.learn.mybatisplusstage01;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.learn.mybatisplusstage01.entity.Product;
 import com.learn.mybatisplusstage01.entity.User;
+import com.learn.mybatisplusstage01.mapper.ProductMapper;
 import com.learn.mybatisplusstage01.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
-
-import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
 
 @SpringBootTest
 class MybatisPlusStage01ApplicationTests {
@@ -88,11 +85,11 @@ class MybatisPlusStage01ApplicationTests {
         user.setName("xiaoshigk");
         user.setEmail("xiaoshi@gmail.com");
         user.setAge(30);
-        System.out.println(userMapper.insert(user)>0 ? "success" : "failure");
+        System.out.println(userMapper.insert(user) > 0 ? "success" : "failure");
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
 /*        // 根据id
         User user = userMapper.selectById(1);
         user.setName("约翰");
@@ -103,10 +100,28 @@ class MybatisPlusStage01ApplicationTests {
         User user = new User();
 //        user.setName("约翰");
         updateWrapper.eq(User::getName, "xiaoshi");
-        updateWrapper.set(User::getAge,55);
+        updateWrapper.set(User::getAge, 55);
         updateWrapper.set(User::getName, "方源");
 //        updateWrapper.set(User::getCreatTime,new Date());
         userMapper.update(user, updateWrapper);
     }
 
+    @Resource
+    ProductMapper productMapper;
+
+    @Test
+    public void testUpdateConcurrent() {
+        System.out.println("修改前" + productMapper.selectById(1));
+        Product product1 = productMapper.selectById(1);
+        Product product2 = productMapper.selectById(1);
+
+        product1.setPrice(product1.getPrice() + 1000);
+        productMapper.updateById(product1);
+
+        product2.setPrice(product2.getPrice() - 500);
+        productMapper.updateById(product2);
+
+        System.out.println("修改后" + productMapper.selectById(1));
+
+    }
 }
