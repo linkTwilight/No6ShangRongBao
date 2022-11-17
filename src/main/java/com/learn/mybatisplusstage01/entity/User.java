@@ -1,6 +1,8 @@
 package com.learn.mybatisplusstage01.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +19,10 @@ public class User {
     private Integer age;
     private String email;
 
+    @TableField(fill = FieldFill.INSERT) //新增时触发
     private Date creatTime;
+//    @TableField(fill = FieldFill.UPDATE)//更新时触发
+    @TableField(fill = FieldFill.INSERT_UPDATE)//新增和更新时触发
     private Date updateTime;
 
 

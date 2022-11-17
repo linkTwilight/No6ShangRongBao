@@ -85,7 +85,7 @@ class MybatisPlusStage01ApplicationTests {
     @Test
     public void testInsert() {
         User user = new User();
-        user.setName("xiaoshi");
+        user.setName("xiaoshigk");
         user.setEmail("xiaoshi@gmail.com");
         user.setAge(30);
         System.out.println(userMapper.insert(user)>0 ? "success" : "failure");
@@ -102,10 +102,10 @@ class MybatisPlusStage01ApplicationTests {
         LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
         User user = new User();
 //        user.setName("约翰");
-        updateWrapper.eq(User::getName, "Tom");
+        updateWrapper.eq(User::getName, "xiaoshi");
         updateWrapper.set(User::getAge,55);
         updateWrapper.set(User::getName, "方源");
-        updateWrapper.set(User::getCreatTime,new Date());
+//        updateWrapper.set(User::getCreatTime,new Date());
         userMapper.update(user, updateWrapper);
     }
 
