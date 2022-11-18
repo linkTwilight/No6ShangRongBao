@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -133,6 +134,13 @@ class MybatisPlusStage01ApplicationTests {
 
     @Test
     public void testDel() {
-        System.out.println(userMapper.deleteById(5) > 0 ? "success" : "failure");
+//        System.out.println(userMapper.deleteById(5) > 0 ? "success" : "failure");
+        userMapper.selectList(null);
+        userMapper.deleteBatchIds(Arrays.asList(1,2,3,4));
+
+    }
+    @Test
+    public void testCustom(){
+        userMapper.selectUserByAge(20,50);
     }
 }

@@ -14,3 +14,7 @@ INSERT INTO product (id, NAME, price) VALUES (1, '笔记本', 100);
 
 ALTER TABLE user ADD COLUMN creat_time DATETIME COMMENT '创建时间';
 ALTER TABLE user ADD COLUMN update_time DATETIME COMMENT '修改时间';
+ALTER TABLE user ADD COLUMN is_deleted tinyint DEFAULT 0 COMMENT '是否删除了 0-false-未删除 1-true-删除';
+
+SELECT *
+FROM user WHERE age > ? AND age < ?;
