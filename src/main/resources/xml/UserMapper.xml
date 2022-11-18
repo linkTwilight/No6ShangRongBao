@@ -5,4 +5,12 @@
         SELECT *
         FROM user WHERE age > #{beginAge} AND age &lt; #{endAge}
     </select>
+
+    <select id="selectPageByCondition" resultType="com.learn.mybatisplusstage01.entity.User">
+        SELECT *
+        FROM user
+        -- 分页自动拼接
+        -- 查询条件：可以调用queryWrapper的方法自动构建
+        ${ew.customSqlSegment}
+    </select>
 </mapper>

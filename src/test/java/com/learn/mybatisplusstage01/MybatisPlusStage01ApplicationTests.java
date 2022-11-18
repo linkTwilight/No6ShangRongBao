@@ -1,6 +1,7 @@
 package com.learn.mybatisplusstage01;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -136,11 +137,21 @@ class MybatisPlusStage01ApplicationTests {
     public void testDel() {
 //        System.out.println(userMapper.deleteById(5) > 0 ? "success" : "failure");
         userMapper.selectList(null);
-        userMapper.deleteBatchIds(Arrays.asList(1,2,3,4));
+        userMapper.deleteBatchIds(Arrays.asList(1, 2, 3, 4));
 
     }
+
     @Test
-    public void testCustom(){
-        userMapper.selectUserByAge(20,50);
+    public void testCustom() {
+//        userMapper.selectUserByAge(20,50);
+
+        //测试自定义带条件查询分页数据
+        Page<User> page = new Page<>(1, 3);
+        List<User> users = userMapper.selectPageByCondition(
+                page, new QueryWrapper<User>()
+                .ge("age", 20)
+                .le("age", 50)
+        );
+        page.setRecords(users);
     }
 }
