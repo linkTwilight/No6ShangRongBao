@@ -130,4 +130,9 @@ class MybatisPlusStage01ApplicationTests {
         System.out.println("修改后" + productMapper.selectById(1));
 
     }
+
+    @Test
+    public void testDel() {
+        System.out.println(userMapper.deleteById(5) > 0 ? "success" : "failure");
+    }
 }
